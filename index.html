@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vano Systems | Desarrollo de software, apps y páginas web en Chile</title>
+<meta name="description" content="Estudio de desarrollo tecnológico en Chile. Creamos páginas web, aplicaciones móviles, software a medida y automatizaciones para empresas que quieren crecer. Innovación con propósito.">
+<link rel="canonical" href="https://vanosystems.com/">
+<meta name="theme-color" content="#0B1020">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CL">
+<meta property="og:site_name" content="Vano Systems">
+<meta property="og:title" content="Vano Systems · Innovación con propósito">
+<meta property="og:description" content="Desarrollo de software, apps y páginas web para empresas en Chile.">
+<meta property="og:url" content="https://vanosystems.com/">
+<meta property="og:image" content="https://vanosystems.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono&display=swap">
+<style>
+/* Layout: one 1200px column, dark "night" ground, bands alternate between ground and a slightly lifted surface. */
+:root {
+  --noche: #0B1020;
+  --banda: #0E1428;
+  --tarjeta: #121A33;
+  --tarjeta-alta: #161F3D;
+  --linea: #222B4D;
+  --linea-suave: #1C2442;
+  --texto: #E7E9F2;
+  --texto-2: #C9CCDB;
+  --texto-3: #9AA0B8;
+  --blanco: #FFFFFF;
+  --indigo: #5B5BF0;
+  --indigo-hover: #4B4BE0;
+  --indigo-claro: #A5A8FF;
+  --menta: #8BE3C4;
+  --display: "Sora", "Segoe UI", system-ui, sans-serif;
+  --cuerpo: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body { margin: 0; background: var(--noche); color: var(--texto); font-family: var(--cuerpo); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+img, svg { max-width: 100%; }
+a { color: var(--indigo-claro); }
+a:hover { color: var(--blanco); }
+:focus-visible { outline: 2px solid var(--indigo-claro); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--display); color: var(--blanco); text-wrap: balance; margin: 0; }
+p { margin: 0; }
+
+.contenedor { max-width: 1200px; margin: 0 auto; padding-inline: 24px; }
+.banda { background: var(--banda); border-block: 1px solid var(--linea-suave); }
+.seccion { padding-block: 104px; }
+
+/* Encabezado */
+.encabezado { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: rgba(11, 16, 32, 0.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--linea-suave); }
+.encabezado .contenedor { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 16px; }
+.marca { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.marca-texto { font-family: var(--display); font-weight: 700; font-size: 19px; letter-spacing: 0.06em; color: var(--blanco); }
+.marca-texto span { font-weight: 400; color: var(--texto-3); }
+.menu { display: flex; align-items: center; gap: 28px; font-size: 15px; }
+.menu a { text-decoration: none; color: var(--texto-2); }
+.menu a:hover { color: var(--blanco); }
+
+.boton { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 12px 24px; border-radius: 12px; font-weight: 500; font-size: 16px; text-decoration: none; transition: background-color .2s, border-color .2s, transform .2s; }
+.boton-principal { background: var(--indigo); color: var(--blanco); }
+.boton-principal:hover { background: var(--indigo-hover); color: var(--blanco); transform: translateY(-1px); }
+.boton-secundario { border: 1px solid var(--linea); color: var(--blanco); }
+.boton-secundario:hover { border-color: var(--indigo-claro); color: var(--blanco); }
+.menu .boton { min-height: 44px; padding: 10px 18px; color: var(--blanco); }
+
+/* Portada */
+.portada { display: flex; flex-wrap: wrap; align-items: center; gap: 56px; padding-block: 96px 112px; }
+.portada-texto { flex: 999 1 520px; min-width: 0; }
+.etiqueta { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border: 1px solid var(--linea); border-radius: 999px; font-size: 14px; color: var(--texto-2); }
+.etiqueta i { width: 8px; height: 8px; border-radius: 4px; background: var(--indigo); }
+.portada h1 { font-weight: 600; font-size: clamp(2.4rem, 5.2vw, 4.25rem); line-height: 1.05; letter-spacing: -0.02em; margin-top: 28px; }
+.portada .bajada { font-size: 1.2rem; color: var(--texto-2); max-width: 34em; margin-top: 24px; }
+.acciones { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 40px; }
+.acciones .boton { min-height: 54px; padding-inline: 28px; font-size: 17px; }
+
+.editor { flex: 1 1 400px; min-width: 0; background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 20px; overflow: hidden; }
+.editor-barra { display: flex; align-items: center; gap: 8px; padding: 14px 18px; border-bottom: 1px solid var(--linea); }
+.editor-barra i { width: 11px; height: 11px; border-radius: 6px; background: #2A3355; }
+.editor-barra span { margin-left: 10px; font-family: var(--mono); font-size: 13px; color: var(--texto-3); }
+.editor pre { margin: 0; padding: 24px; font-family: var(--mono); font-size: 14px; line-height: 2; color: var(--texto-2); overflow-x: auto; }
+.c-com { color: #7C80A0; } .c-key { color: var(--indigo-claro); } .c-str { color: var(--menta); }
+.cursor { display: inline-block; width: 8px; height: 1.1em; vertical-align: -0.2em; background: var(--indigo-claro); animation: parpadeo 1.1s steps(1) infinite; }
+@keyframes parpadeo { 50% { opacity: 0; } }
+
+/* Encabezados de sección */
+.antetitulo { font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--indigo-claro); }
+.titulo { font-weight: 600; font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; margin-top: 16px; max-width: 18em; }
+.intro { font-size: 1.15rem; color: var(--texto-2); max-width: 36em; margin-top: 20px; }
+.rejilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 20px; margin-top: 56px; }
+
+/* Servicios */
+.servicio { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 18px; padding: 32px; transition: border-color .2s, transform .2s; }
+.servicio:hover { border-color: #3A4577; transform: translateY(-2px); }
+.servicio h3 { font-weight: 600; font-size: 21px; margin-top: 20px; }
+.servicio p { font-size: 16px; color: #B8BCD0; margin-top: 10px; }
+
+/* Proceso: es una secuencia real, por eso va numerado */
+.pasos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 20px; margin-top: 56px; list-style: none; padding: 0; }
+.paso { border-top: 2px solid #2A3355; padding-top: 24px; }
+.paso:first-child { border-top-color: var(--indigo); }
+.paso-num { font-family: var(--mono); font-size: 14px; color: var(--texto-3); }
+.paso h3 { font-weight: 600; font-size: 22px; margin-top: 12px; }
+.paso p { font-size: 16px; color: #B8BCD0; margin-top: 10px; }
+
+/* Nosotros */
+.nosotros { display: flex; flex-wrap: wrap; align-items: center; gap: 56px; }
+.nosotros-marca { flex: 1 1 260px; display: flex; justify-content: center; }
+.nosotros-texto { flex: 999 1 480px; min-width: 0; }
+.nosotros-texto p { font-size: 1.15rem; line-height: 1.7; color: var(--texto-2); margin-top: 20px; max-width: 36em; }
+
+/* Proyectos */
+.proyecto { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; }
+.proyecto-icono { height: 150px; background: var(--tarjeta-alta); border-bottom: 1px solid var(--linea); display: flex; align-items: center; justify-content: center; }
+.proyecto-cuerpo { padding: 28px; display: flex; flex-direction: column; gap: 10px; flex-grow: 1; }
+.proyecto-tipo { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--indigo-claro); }
+.proyecto h3 { font-weight: 600; font-size: 21px; }
+.proyecto p { font-size: 16px; color: #B8BCD0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 8px; list-style: none; padding-left: 0; margin-bottom: 0; }
+.chips li { padding: 6px 12px; border-radius: 999px; border: 1px solid #2A3355; font-size: 13px; color: var(--texto-2); }
+
+/* Contacto */
+.contacto { padding-bottom: 104px; }
+.contacto-caja { background: var(--indigo); border-radius: 28px; padding: clamp(32px, 6vw, 80px); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 32px; }
+.contacto-caja .texto { flex: 999 1 420px; min-width: 0; }
+.contacto-caja h2 { font-weight: 600; font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.08; letter-spacing: -0.02em; }
+.contacto-caja p { font-size: 1.15rem; color: #ECEBFF; margin-top: 16px; }
+.contacto-caja .botones { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+.boton-oscuro { background: var(--noche); color: var(--blanco); min-height: 54px; font-size: 17px; }
+.boton-oscuro:hover { background: #050814; color: var(--blanco); }
+.boton-borde { white-space: nowrap; border: 1px solid #ECEBFF; color: var(--blanco); min-height: 54px; font-size: 17px; }
+.boton-borde:hover { background: rgba(255, 255, 255, 0.1); color: var(--blanco); }
+
+/* Pie */
+.pie { border-top: 1px solid var(--linea-suave); }
+.pie .contenedor { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; padding-block: 40px; font-size: 14px; color: var(--texto-3); }
+.pie-datos { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.pie a { color: var(--texto-3); text-decoration: none; }
+.pie a:hover { color: var(--blanco); }
+
+@media (max-width: 760px) {
+  .menu a:not(.boton) { display: none; }
+  .seccion { padding-block: 72px; }
+  .portada { padding-block: 64px 80px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .cursor { animation: none; }
+  .boton, .servicio { transition: none; }
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Vano Systems",
+  "slogan": "Innovación con propósito",
+  "description": "Estudio de desarrollo tecnológico en Chile. Creamos páginas web, aplicaciones móviles, software a medida y automatizaciones para empresas que quieren crecer. Innovación con propósito.",
+  "url": "https://vanosystems.com/",
+  "logo": "https://vanosystems.com/favicon.svg",
+  "image": "https://vanosystems.com/og-image.png",
+  "telephone": "+56973314909",
+  "email": "contacto@vanosystems.com",
+  "areaServed": {
+    "@type": "Country",
+    "name": "Chile"
+  },
+  "knowsLanguage": "es",
+  "priceRange": "$$",
+  "makesOffer": [
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Desarrollo web"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Desarrollo de apps móviles"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Software a medida"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Integraciones y APIs"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Nube y DevOps"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Automatización e inteligencia artificial"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="encabezado">
+  <div class="contenedor">
+    <a class="marca" href="#inicio" aria-label="Vano Systems, inicio">
+      <svg width="30" height="30" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M8 10H56" stroke="#5B5BF0" stroke-width="8" stroke-linecap="square"/><path d="M12 10L28.5 54" stroke="#FFFFFF" stroke-width="8" stroke-linecap="square"/><path d="M52 10L35.5 54" stroke="#FFFFFF" stroke-width="8" stroke-linecap="square"/></svg>
+      <span class="marca-texto">VANO <span>SYSTEMS</span></span>
+    </a>
+    <nav class="menu" aria-label="Principal">
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#nosotros">Nosotros</a>
+      <a class="boton boton-principal" href="https://wa.me/56973314909?text=Hola%20Vano%20Systems%2C%20quiero%20cotizar%20un%20proyecto">Hablemos</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section id="inicio" class="contenedor portada">
+    <div class="portada-texto">
+      <p class="etiqueta"><i></i>Desarrollo de software, apps y páginas web en Chile</p>
+      <h1>Construimos el software que mueve tu empresa.</h1>
+      <p class="bajada">Diseñamos y desarrollamos plataformas web, aplicaciones móviles y sistemas a medida, con el nivel de detalle de las mejores empresas de tecnología.</p>
+      <div class="acciones">
+        <a class="boton boton-principal" href="https://wa.me/56973314909?text=Hola%20Vano%20Systems%2C%20quiero%20agendar%20una%20llamada">Agenda una llamada</a>
+        <a class="boton boton-secundario" href="#servicios">Ver servicios</a>
+      </div>
+    </div>
+    <div class="editor" aria-hidden="true">
+      <div class="editor-barra"><i></i><i></i><i></i><span>vano.config.ts</span></div>
+<pre><span class="c-com">// Tu proyecto, bien construido</span>
+<span class="c-key">export const</span> proyecto = {
+  cliente: <span class="c-str">"Tu empresa"</span>,
+  objetivo: <span class="c-str">"Crecer con tecnología"</span>,
+  stack: [<span class="c-str">"Web"</span>, <span class="c-str">"Móvil"</span>, <span class="c-str">"Nube"</span>],
+  diseño: <span class="c-str">"premium"</span>,
+  propósito: <span class="c-key">true</span>,
+};
+
+<span class="c-com">$</span> vano deploy --produccion
+<span class="c-str">✓</span> Listo para tus clientes <span class="cursor"></span></pre>
+    </div>
+  </section>
+
+  <section id="servicios" class="banda">
+    <div class="contenedor seccion">
+      <p class="antetitulo">Servicios</p>
+      <h2 class="titulo">Todo lo que tu empresa necesita para competir en digital.</h2>
+      <div class="rejilla">
+        <article class="servicio">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8"/></svg>
+          <h3>Desarrollo web</h3>
+          <p>Sitios y plataformas rápidas, seguras y diseñadas para convertir visitantes en clientes.</p>
+        </article>
+        <article class="servicio">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+          <h3>Apps móviles</h3>
+          <p>Aplicaciones para iOS y Android que tus usuarios disfrutan usar todos los días.</p>
+        </article>
+        <article class="servicio">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>
+          <h3>Software a medida</h3>
+          <p>Sistemas hechos exactamente para cómo trabaja tu negocio, no al revés.</p>
+        </article>
+        <article class="servicio">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M8.6 10.7l6.8-3.4M8.6 13.3l6.8 3.4"/></svg>
+          <h3>Integraciones y APIs</h3>
+          <p>Conectamos tus herramientas, pagos y datos para que todo funcione como uno solo.</p>
+        </article>
+        <article class="servicio">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4 4 0 0 1-.6-8A6 6 0 0 1 18 9a4.5 4.5 0 0 1-.5 9H7z"/></svg>
+          <h3>Nube y DevOps</h3>
+          <p>Infraestructura escalable y despliegues automáticos para crecer sin caídas.</p>
+        </article>
+        <article class="servicio">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>
+          <h3>Automatización e IA</h3>
+          <p>Procesos que se hacen solos y asistentes inteligentes que ahorran horas a tu equipo.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="proceso" class="contenedor seccion">
+    <p class="antetitulo">Cómo trabajamos</p>
+    <h2 class="titulo">Un proceso claro, de la idea al lanzamiento.</h2>
+    <ol class="pasos">
+      <li class="paso"><span class="paso-num">01</span><h3>Descubrimos</h3><p>Entendemos tu negocio, tus clientes y lo que necesitas lograr.</p></li>
+      <li class="paso"><span class="paso-num">02</span><h3>Diseñamos</h3><p>Creamos la experiencia y la interfaz antes de escribir una línea de código.</p></li>
+      <li class="paso"><span class="paso-num">03</span><h3>Construimos</h3><p>Desarrollamos por etapas y te mostramos avances reales cada semana.</p></li>
+      <li class="paso"><span class="paso-num">04</span><h3>Acompañamos</h3><p>Lanzamos, medimos y seguimos mejorando contigo después de la entrega.</p></li>
+    </ol>
+  </section>
+
+  <section id="nosotros" class="banda">
+    <div class="contenedor seccion nosotros">
+      <div class="nosotros-marca">
+        <svg width="240" height="240" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M8 10H56" stroke="#5B5BF0" stroke-width="4" stroke-linecap="square"/><path d="M12 10L28.5 54" stroke="#FFFFFF" stroke-width="4" stroke-linecap="square"/><path d="M52 10L35.5 54" stroke="#FFFFFF" stroke-width="4" stroke-linecap="square"/></svg>
+      </div>
+      <div class="nosotros-texto">
+        <p class="antetitulo">Por qué Vano</p>
+        <h2 class="titulo">El espacio donde se construye.</h2>
+        <p>En arquitectura, un <em>vano</em> es el espacio abierto entre dos columnas: el lugar por donde entra la luz y por donde se pasa a algo nuevo. Eso hacemos con la tecnología: abrimos el espacio para que tu empresa crezca, sobre una estructura sólida.</p>
+        <p>Somos un estudio de desarrollo 100% remoto en Chile. Trabajamos cada proyecto con innovación con propósito: tecnología que resuelve problemas reales.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="proyectos" class="contenedor seccion">
+    <p class="antetitulo">Proyectos</p>
+    <h2 class="titulo">Software real, funcionando para negocios reales.</h2>
+    <p class="intro">Apps, plataformas y automatizaciones que hemos diseñado y construido de punta a punta.</p>
+    <div class="rejilla">
+      <article class="proyecto">
+        <div class="proyecto-icono"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M10 7h4M12 11v6M10 13.5c0-1 4-1 4 0s-4 1-4 2.5 4 1 4 0"/></svg></div>
+        <div class="proyecto-cuerpo"><p class="proyecto-tipo">App móvil · Finanzas familiares</p><h3>AppFamiliar</h3><p>Control del dinero de la familia con roles, cuentas privadas para cada miembro, invitaciones seguras por WhatsApp e historial editable.</p><ul class="chips"><li>React Native</li><li>Supabase</li><li>Android</li></ul></div>
+      </article>
+      <article class="proyecto">
+        <div class="proyecto-icono"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 14l3-3 3 2 4-5"/></svg></div>
+        <div class="proyecto-cuerpo"><p class="proyecto-tipo">Web app · Gestión de negocio</p><h3>AppMaquinas</h3><p>Control de cortes, recaudo, historial y reparto de ganancias de máquinas por establecimiento. Pensada primero para el celular.</p><ul class="chips"><li>Next.js</li><li>PostgreSQL</li><li>Prisma</li></ul></div>
+      </article>
+      <article class="proyecto">
+        <div class="proyecto-icono"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10l9-6 9 6v10H3z"/><path d="M9 20v-6h6v6"/></svg></div>
+        <div class="proyecto-cuerpo"><p class="proyecto-tipo">Sitio web · Cliente</p><h3>Vidrios y Aluminio El Trébol</h3><p>Página corporativa con cotización directa por WhatsApp y ubicación en mapa para convertir visitas en clientes.</p><ul class="chips"><li>Web</li><li>WhatsApp</li><li>Mapas</li></ul></div>
+      </article>
+      <article class="proyecto">
+        <div class="proyecto-icono"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg></div>
+        <div class="proyecto-cuerpo"><p class="proyecto-tipo">Automatización · Finanzas</p><h3>BotCasaCambio</h3><p>Detecta en tiempo real las mejores rutas de cambio entre casas de cambio, con alertas por Telegram y panel con mapa.</p><ul class="chips"><li>Python</li><li>FastAPI</li><li>Telegram</li></ul></div>
+      </article>
+      <article class="proyecto">
+        <div class="proyecto-icono"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5M4 19h16"/><path d="M8 15l3-4 3 2 5-6"/></svg></div>
+        <div class="proyecto-cuerpo"><p class="proyecto-tipo">Plataforma · Análisis de datos</p><h3>Trading Supervisor</h3><p>Sistema que registra y analiza cada operación de bots de trading, para comparar estrategias y versiones sin perder historia.</p><ul class="chips"><li>Python</li><li>PostgreSQL</li><li>Docker</li></ul></div>
+      </article>
+      <article class="proyecto">
+        <div class="proyecto-icono"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4v16M6 8H4v6h2M12 6v12M12 9h-2v5h2M18 3v14M18 6h-2v7h2"/></svg></div>
+        <div class="proyecto-cuerpo"><p class="proyecto-tipo">Algoritmos · Mercados</p><h3>Bots de trading algorítmico</h3><p>Estrategias automatizadas para índices, oro y noticias económicas, con pruebas históricas antes de operar.</p><ul class="chips"><li>MQL5</li><li>MetaTrader 5</li><li>Backtesting</li></ul></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="contacto" class="contenedor contacto">
+    <div class="contacto-caja">
+      <div class="texto">
+        <h2>¿Tienes una idea? Construyámosla juntos.</h2>
+        <p>Cuéntanos qué necesitas y te respondemos con una propuesta clara.</p>
+      </div>
+      <div class="botones">
+        <a class="boton boton-oscuro" href="https://wa.me/56973314909?text=Hola%20Vano%20Systems%2C%20quiero%20agendar%20una%20llamada">Agenda una llamada</a>
+        <a class="boton boton-borde" href="https://wa.me/56973314909">WhatsApp +56 9 7331 4909</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <div class="marca">
+      <svg width="22" height="22" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M8 10H56" stroke="#5B5BF0" stroke-width="8" stroke-linecap="square"/><path d="M12 10L28.5 54" stroke="#FFFFFF" stroke-width="8" stroke-linecap="square"/><path d="M52 10L35.5 54" stroke="#FFFFFF" stroke-width="8" stroke-linecap="square"/></svg>
+      <span class="marca-texto" style="font-size: 15px">VANO SYSTEMS</span>
+      <span>· Innovación con propósito</span>
+    </div>
+    <div class="pie-datos">
+      <span>contacto@vanosystems.com</span>
+      <a href="https://wa.me/56973314909">+56 9 7331 4909</a>
+      <span>Chile · Atención 100% remota</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
