@@ -179,3 +179,7 @@ p { margin: 0; }
 .incluye h3 { font-size: 19px; }
 .otros-servicios { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
 .pie-enlaces { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+
+/* Gráfico real en lugar de ícono */
+.proyecto-grafico { height: 150px; overflow: hidden; background: #000; border-bottom: 1px solid var(--linea); }
+.proyecto-grafico img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left top; }
