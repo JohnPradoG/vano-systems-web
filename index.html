@@ -128,6 +128,23 @@ p { margin: 0; }
 .proyecto p { font-size: 16px; color: #B8BCD0; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 8px; list-style: none; padding-left: 0; margin-bottom: 0; }
 .chips li { padding: 6px 12px; border-radius: 999px; border: 1px solid #2A3355; font-size: 13px; color: var(--texto-2); }
+/* Capturas reales: el celular asoma desde abajo, el sitio web va en un marco de navegador */
+.destacado { display: flex; flex-wrap: wrap; background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 18px; overflow: hidden; margin-top: 56px; }
+.destacado .navegador { flex: 3 1 520px; min-width: 0; background: var(--tarjeta-alta); padding: 40px 0 0 40px; display: flex; align-items: flex-end; }
+.navegador-marco { width: 100%; border: 1px solid var(--linea); border-bottom: 0; border-right: 0; border-radius: 12px 0 0 0; overflow: hidden; background: #fff; }
+.navegador-barra { display: flex; gap: 6px; padding: 10px 14px; background: #1B2445; }
+.navegador-barra i { width: 9px; height: 9px; border-radius: 5px; background: #3A4577; }
+.navegador-marco img { display: block; width: 100%; height: auto; }
+.destacado .proyecto-cuerpo { flex: 2 1 340px; padding: 40px; justify-content: center; }
+.rejilla-capturas { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 20px; margin-top: 20px; }
+.proyecto-captura { height: 320px; overflow: hidden; background: radial-gradient(120% 90% at 50% 0%, #26307A 0%, var(--tarjeta-alta) 62%); border-bottom: 1px solid var(--linea); display: flex; justify-content: center; padding-top: 32px; }
+.proyecto-captura img { width: 200px; height: auto; align-self: flex-start; border-radius: 22px; border: 4px solid #2A3355; box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45); }
+.subtitulo-proyectos { font-family: var(--display); font-weight: 600; font-size: 22px; color: var(--blanco); margin-top: 72px; }
+.subtitulo-proyectos + .rejilla { margin-top: 24px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); }
+.destacado .proyecto-tipo { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--indigo-claro); }
+.destacado h3 { font-weight: 600; font-size: 26px; }
+.destacado p { font-size: 16px; color: #B8BCD0; }
+.destacado .chips { margin-top: 8px; }
 
 /* Contacto */
 .contacto { padding-bottom: 104px; }
@@ -149,6 +166,8 @@ p { margin: 0; }
 .pie a:hover { color: var(--blanco); }
 
 @media (max-width: 760px) {
+  .destacado .navegador { padding: 24px 0 0 24px; }
+  .destacado .proyecto-cuerpo { padding: 28px; }
   .menu a:not(.boton) { display: none; }
   .seccion { padding-block: 72px; }
   .portada { padding-block: 64px 80px; }
@@ -336,18 +355,33 @@ p { margin: 0; }
     <p class="antetitulo">Proyectos</p>
     <h2 class="titulo">Software real, funcionando para negocios reales.</h2>
     <p class="intro">Apps, plataformas y automatizaciones que hemos diseñado y construido de punta a punta.</p>
-    <div class="rejilla">
+    <article class="destacado">
+      <div class="navegador"><div class="navegador-marco"><div class="navegador-barra" aria-hidden="true"><i></i><i></i><i></i></div><img src="img/proyectos/trebol.webp" width="1120" height="560" loading="lazy" alt="Portada del sitio web de Vidrios y Aluminio El Trébol"></div></div>
+      <div class="proyecto-cuerpo"><p class="proyecto-tipo">Sitio web · Cliente</p><h3>Vidrios y Aluminio El Trébol</h3><p>Sitio corporativo para una empresa de vidrios y aluminio con más de 12 años de trayectoria: servicios, galería de trabajos reales, cotización directa por WhatsApp y mapa de ubicación.</p><ul class="chips"><li>Web</li><li>SEO</li><li>WhatsApp</li><li>Galería</li></ul></div>
+    </article>
+    <div class="rejilla-capturas">
       <article class="proyecto">
-        <div class="proyecto-icono"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M10 7h4M12 11v6M10 13.5c0-1 4-1 4 0s-4 1-4 2.5 4 1 4 0"/></svg></div>
-        <div class="proyecto-cuerpo"><p class="proyecto-tipo">App móvil · Finanzas familiares</p><h3>AppFamiliar</h3><p>Control del dinero de la familia con roles, cuentas privadas para cada miembro, invitaciones seguras por WhatsApp e historial editable.</p><ul class="chips"><li>React Native</li><li>Supabase</li><li>Android</li></ul></div>
+        <div class="proyecto-captura"><img src="img/proyectos/hipica.webp" width="560" height="1086" loading="lazy" alt="Pantalla de perfil de la app Hípica IA Chile"></div>
+        <div class="proyecto-cuerpo"><p class="proyecto-tipo">App móvil · IA</p><h3>Hípica IA Chile</h3><p>Información y estadística hípica con IA: carreras, radar, calendario, seguimiento de caballos y jinetes, y avisos al celular.</p><ul class="chips"><li>Android</li><li>IA</li><li>Notificaciones</li></ul></div>
       </article>
+      <article class="proyecto">
+        <div class="proyecto-captura"><img src="img/proyectos/cafeuno.webp" width="560" height="1013" loading="lazy" alt="Sistema de inventario de Billares Café Uno con productos y cuenta por mesa"></div>
+        <div class="proyecto-cuerpo"><p class="proyecto-tipo">Web app · Punto de venta</p><h3>Inventario Billares Café Uno</h3><p>Control de inventario y consumo por mesa para un billar: productos con stock al día y la cuenta de cada mesa en el celular.</p><ul class="chips"><li>Web app</li><li>Inventario</li><li>Ventas</li></ul></div>
+      </article>
+      <article class="proyecto">
+        <div class="proyecto-captura"><img src="img/proyectos/appfamiliar.webp" width="560" height="1101" loading="lazy" alt="Pantalla de inicio de AppFamiliar con resumen de movimientos"></div>
+        <div class="proyecto-cuerpo"><p class="proyecto-tipo">App móvil · Finanzas</p><h3>AppFamiliar</h3><p>Control del dinero de la familia con roles, cuentas privadas para cada miembro, invitaciones seguras por WhatsApp e historial editable.</p><ul class="chips"><li>React Native</li><li>Supabase</li><li>Android</li></ul></div>
+      </article>
+      <article class="proyecto">
+        <div class="proyecto-captura"><img src="img/proyectos/cristaltec.webp" width="560" height="1086" loading="lazy" alt="Pantalla de nueva cotización del cotizador Cristaltec"></div>
+        <div class="proyecto-cuerpo"><p class="proyecto-tipo">App · Cotizador</p><h3>Cotizador Cristaltec</h3><p>Cotizaciones numeradas de ventanas y puertas, calculadora de corte y despiece, clientes, lista de precios e historial.</p><ul class="chips"><li>Cotizaciones</li><li>Cálculo de corte</li><li>Celular</li></ul></div>
+      </article>
+    </div>
+    <h3 class="subtitulo-proyectos">Más proyectos</h3>
+    <div class="rejilla">
       <article class="proyecto">
         <div class="proyecto-icono"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 14l3-3 3 2 4-5"/></svg></div>
         <div class="proyecto-cuerpo"><p class="proyecto-tipo">Web app · Gestión de negocio</p><h3>AppMaquinas</h3><p>Control de cortes, recaudo, historial y reparto de ganancias de máquinas por establecimiento. Pensada primero para el celular.</p><ul class="chips"><li>Next.js</li><li>PostgreSQL</li><li>Prisma</li></ul></div>
-      </article>
-      <article class="proyecto">
-        <div class="proyecto-icono"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10l9-6 9 6v10H3z"/><path d="M9 20v-6h6v6"/></svg></div>
-        <div class="proyecto-cuerpo"><p class="proyecto-tipo">Sitio web · Cliente</p><h3>Vidrios y Aluminio El Trébol</h3><p>Página corporativa con cotización directa por WhatsApp y ubicación en mapa para convertir visitas en clientes.</p><ul class="chips"><li>Web</li><li>WhatsApp</li><li>Mapas</li></ul></div>
       </article>
       <article class="proyecto">
         <div class="proyecto-icono"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg></div>
