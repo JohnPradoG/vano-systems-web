@@ -21,223 +21,112 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono&display=swap">
-<style>
-/* Layout: one 1200px column, dark "night" ground, bands alternate between ground and a slightly lifted surface. */
-:root {
-  --noche: #0B1020;
-  --banda: #0E1428;
-  --tarjeta: #121A33;
-  --tarjeta-alta: #161F3D;
-  --linea: #222B4D;
-  --linea-suave: #1C2442;
-  --texto: #E7E9F2;
-  --texto-2: #C9CCDB;
-  --texto-3: #9AA0B8;
-  --blanco: #FFFFFF;
-  --indigo: #5B5BF0;
-  --indigo-hover: #4B4BE0;
-  --indigo-claro: #A5A8FF;
-  --menta: #8BE3C4;
-  --display: "Sora", "Segoe UI", system-ui, sans-serif;
-  --cuerpo: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  color-scheme: dark;
-}
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 88px; }
-body { margin: 0; background: var(--noche); color: var(--texto); font-family: var(--cuerpo); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
-img, svg { max-width: 100%; }
-a { color: var(--indigo-claro); }
-a:hover { color: var(--blanco); }
-:focus-visible { outline: 2px solid var(--indigo-claro); outline-offset: 3px; border-radius: 6px; }
-h1, h2, h3 { font-family: var(--display); color: var(--blanco); text-wrap: balance; margin: 0; }
-p { margin: 0; }
-
-.contenedor { max-width: 1200px; margin: 0 auto; padding-inline: 24px; }
-.banda { background: var(--banda); border-block: 1px solid var(--linea-suave); }
-.seccion { padding-block: 104px; }
-
-/* Encabezado */
-.encabezado { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: rgba(11, 16, 32, 0.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--linea-suave); }
-.encabezado .contenedor { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 16px; }
-.marca { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-.marca-texto { font-family: var(--display); font-weight: 700; font-size: 19px; letter-spacing: 0.06em; color: var(--blanco); }
-.marca-texto span { font-weight: 400; color: var(--texto-3); }
-.menu { display: flex; align-items: center; gap: 28px; font-size: 15px; }
-.menu a { text-decoration: none; color: var(--texto-2); }
-.menu a:hover { color: var(--blanco); }
-
-.boton { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 12px 24px; border-radius: 12px; font-weight: 500; font-size: 16px; text-decoration: none; transition: background-color .2s, border-color .2s, transform .2s; }
-.boton-principal { background: var(--indigo); color: var(--blanco); }
-.boton-principal:hover { background: var(--indigo-hover); color: var(--blanco); transform: translateY(-1px); }
-.boton-secundario { border: 1px solid var(--linea); color: var(--blanco); }
-.boton-secundario:hover { border-color: var(--indigo-claro); color: var(--blanco); }
-.menu .boton { min-height: 44px; padding: 10px 18px; color: var(--blanco); }
-
-/* Portada */
-.portada { display: flex; flex-wrap: wrap; align-items: center; gap: 56px; padding-block: 96px 112px; }
-.portada-texto { flex: 999 1 520px; min-width: 0; }
-.etiqueta { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border: 1px solid var(--linea); border-radius: 999px; font-size: 14px; color: var(--texto-2); }
-.etiqueta i { width: 8px; height: 8px; border-radius: 4px; background: var(--indigo); }
-.portada h1 { font-weight: 600; font-size: clamp(2.4rem, 5.2vw, 4.25rem); line-height: 1.05; letter-spacing: -0.02em; margin-top: 28px; }
-.portada .bajada { font-size: 1.2rem; color: var(--texto-2); max-width: 34em; margin-top: 24px; }
-.acciones { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 40px; }
-.acciones .boton { min-height: 54px; padding-inline: 28px; font-size: 17px; }
-
-.editor { flex: 1 1 400px; min-width: 0; background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 20px; overflow: hidden; }
-.editor-barra { display: flex; align-items: center; gap: 8px; padding: 14px 18px; border-bottom: 1px solid var(--linea); }
-.editor-barra i { width: 11px; height: 11px; border-radius: 6px; background: #2A3355; }
-.editor-barra span { margin-left: 10px; font-family: var(--mono); font-size: 13px; color: var(--texto-3); }
-.editor pre { margin: 0; padding: 24px; font-family: var(--mono); font-size: 14px; line-height: 2; color: var(--texto-2); overflow-x: auto; }
-.c-com { color: #7C80A0; } .c-key { color: var(--indigo-claro); } .c-str { color: var(--menta); }
-.cursor { display: inline-block; width: 8px; height: 1.1em; vertical-align: -0.2em; background: var(--indigo-claro); animation: parpadeo 1.1s steps(1) infinite; }
-@keyframes parpadeo { 50% { opacity: 0; } }
-
-/* Encabezados de sección */
-.antetitulo { font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--indigo-claro); }
-.titulo { font-weight: 600; font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; margin-top: 16px; max-width: 18em; }
-.intro { font-size: 1.15rem; color: var(--texto-2); max-width: 36em; margin-top: 20px; }
-.rejilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 20px; margin-top: 56px; }
-
-/* Servicios */
-.servicio { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 18px; padding: 32px; transition: border-color .2s, transform .2s; }
-.servicio:hover { border-color: #3A4577; transform: translateY(-2px); }
-.servicio h3 { font-weight: 600; font-size: 21px; margin-top: 20px; }
-.servicio p { font-size: 16px; color: #B8BCD0; margin-top: 10px; }
-
-/* Proceso: es una secuencia real, por eso va numerado */
-.pasos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 20px; margin-top: 56px; list-style: none; padding: 0; }
-.paso { border-top: 2px solid #2A3355; padding-top: 24px; }
-.paso:first-child { border-top-color: var(--indigo); }
-.paso-num { font-family: var(--mono); font-size: 14px; color: var(--texto-3); }
-.paso h3 { font-weight: 600; font-size: 22px; margin-top: 12px; }
-.paso p { font-size: 16px; color: #B8BCD0; margin-top: 10px; }
-
-/* Nosotros */
-.nosotros { display: flex; flex-wrap: wrap; align-items: center; gap: 56px; }
-.nosotros-marca { flex: 1 1 260px; display: flex; justify-content: center; }
-.nosotros-texto { flex: 999 1 480px; min-width: 0; }
-.nosotros-texto p { font-size: 1.15rem; line-height: 1.7; color: var(--texto-2); margin-top: 20px; max-width: 36em; }
-
-/* Proyectos */
-.proyecto { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; }
-.proyecto-icono { height: 150px; background: var(--tarjeta-alta); border-bottom: 1px solid var(--linea); display: flex; align-items: center; justify-content: center; }
-.proyecto-cuerpo { padding: 28px; display: flex; flex-direction: column; gap: 10px; flex-grow: 1; }
-.proyecto-tipo { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--indigo-claro); }
-.proyecto h3 { font-weight: 600; font-size: 21px; }
-.proyecto p { font-size: 16px; color: #B8BCD0; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 8px; list-style: none; padding-left: 0; margin-bottom: 0; }
-.chips li { padding: 6px 12px; border-radius: 999px; border: 1px solid #2A3355; font-size: 13px; color: var(--texto-2); }
-/* Capturas reales: el celular asoma desde abajo, el sitio web va en un marco de navegador */
-.destacado { display: flex; flex-wrap: wrap; background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 18px; overflow: hidden; margin-top: 56px; }
-.destacado .navegador { flex: 3 1 520px; min-width: 0; background: var(--tarjeta-alta); padding: 40px 0 0 40px; display: flex; align-items: flex-end; }
-.navegador-marco { width: 100%; border: 1px solid var(--linea); border-bottom: 0; border-right: 0; border-radius: 12px 0 0 0; overflow: hidden; background: #fff; }
-.navegador-barra { display: flex; gap: 6px; padding: 10px 14px; background: #1B2445; }
-.navegador-barra i { width: 9px; height: 9px; border-radius: 5px; background: #3A4577; }
-.navegador-marco img { display: block; width: 100%; height: auto; }
-.destacado .proyecto-cuerpo { flex: 2 1 340px; padding: 40px; justify-content: center; }
-.rejilla-capturas { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 20px; margin-top: 20px; }
-.proyecto-captura { height: 320px; overflow: hidden; background: radial-gradient(120% 90% at 50% 0%, #26307A 0%, var(--tarjeta-alta) 62%); border-bottom: 1px solid var(--linea); display: flex; justify-content: center; padding-top: 32px; }
-.proyecto-captura img { width: 200px; height: auto; align-self: flex-start; border-radius: 22px; border: 4px solid #2A3355; box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45); }
-.subtitulo-proyectos { font-family: var(--display); font-weight: 600; font-size: 22px; color: var(--blanco); margin-top: 72px; }
-.subtitulo-proyectos + .rejilla { margin-top: 24px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); }
-.destacado .proyecto-tipo { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--indigo-claro); }
-.destacado h3 { font-weight: 600; font-size: 26px; }
-.destacado p { font-size: 16px; color: #B8BCD0; }
-.destacado .chips { margin-top: 8px; }
-
-/* Contacto */
-.contacto { padding-bottom: 104px; }
-.contacto-caja { background: var(--indigo); border-radius: 28px; padding: clamp(32px, 6vw, 80px); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 32px; }
-.contacto-caja .texto { flex: 999 1 420px; min-width: 0; }
-.contacto-caja h2 { font-weight: 600; font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.08; letter-spacing: -0.02em; }
-.contacto-caja p { font-size: 1.15rem; color: #ECEBFF; margin-top: 16px; }
-.contacto-caja .botones { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
-.boton-oscuro { background: var(--noche); color: var(--blanco); min-height: 54px; font-size: 17px; }
-.boton-oscuro:hover { background: #050814; color: var(--blanco); }
-.boton-borde { white-space: nowrap; border: 1px solid #ECEBFF; color: var(--blanco); min-height: 54px; font-size: 17px; }
-.boton-borde:hover { background: rgba(255, 255, 255, 0.1); color: var(--blanco); }
-
-/* Pie */
-.pie { border-top: 1px solid var(--linea-suave); }
-.pie .contenedor { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; padding-block: 40px; font-size: 14px; color: var(--texto-3); }
-.pie-datos { display: flex; flex-wrap: wrap; gap: 8px 24px; }
-.pie a { color: var(--texto-3); text-decoration: none; }
-.pie a:hover { color: var(--blanco); }
-
-@media (max-width: 760px) {
-  .destacado .navegador { padding: 24px 0 0 24px; }
-  .destacado .proyecto-cuerpo { padding: 28px; }
-  .menu a:not(.boton) { display: none; }
-  .seccion { padding-block: 72px; }
-  .portada { padding-block: 64px 80px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .cursor { animation: none; }
-  .boton, .servicio { transition: none; }
-}
-</style>
+<link rel="stylesheet" href="/estilos.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "Vano Systems",
-  "slogan": "Innovación con propósito",
-  "description": "Estudio de desarrollo tecnológico en Chile. Creamos páginas web, aplicaciones móviles, software a medida y automatizaciones para empresas que quieren crecer. Innovación con propósito.",
-  "url": "https://vanosystems.com/",
-  "logo": "https://vanosystems.com/favicon.svg",
-  "image": "https://vanosystems.com/og-image.png",
-  "telephone": "+56973314909",
-  "email": "contacto@vanosystems.com",
-  "areaServed": {
-    "@type": "Country",
-    "name": "Chile"
-  },
-  "knowsLanguage": "es",
-  "priceRange": "$$",
-  "makesOffer": [
+  "@graph": [
     {
-      "@type": "Offer",
-      "itemOffered": {
-        "@type": "Service",
-        "name": "Desarrollo web"
-      }
+      "@type": "ProfessionalService",
+      "name": "Vano Systems",
+      "slogan": "Innovación con propósito",
+      "description": "Estudio de desarrollo tecnológico en Chile. Creamos páginas web, aplicaciones móviles, software a medida y automatizaciones para empresas que quieren crecer. Innovación con propósito.",
+      "url": "https://vanosystems.com/",
+      "logo": "https://vanosystems.com/favicon.svg",
+      "image": "https://vanosystems.com/og-image.png",
+      "telephone": "+56973314909",
+      "email": "contacto@vanosystems.com",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Chile"
+      },
+      "knowsLanguage": "es",
+      "priceRange": "$$",
+      "makesOffer": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Desarrollo web",
+            "url": "https://vanosystems.com/desarrollo-web/"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Desarrollo de apps móviles",
+            "url": "https://vanosystems.com/desarrollo-de-apps/"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Software a medida",
+            "url": "https://vanosystems.com/software-a-medida/"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Integraciones y APIs"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Nube y DevOps"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Automatización e inteligencia artificial"
+          }
+        }
+      ],
+      "@id": "https://vanosystems.com/#empresa"
     },
     {
-      "@type": "Offer",
-      "itemOffered": {
-        "@type": "Service",
-        "name": "Desarrollo de apps móviles"
-      }
-    },
-    {
-      "@type": "Offer",
-      "itemOffered": {
-        "@type": "Service",
-        "name": "Software a medida"
-      }
-    },
-    {
-      "@type": "Offer",
-      "itemOffered": {
-        "@type": "Service",
-        "name": "Integraciones y APIs"
-      }
-    },
-    {
-      "@type": "Offer",
-      "itemOffered": {
-        "@type": "Service",
-        "name": "Nube y DevOps"
-      }
-    },
-    {
-      "@type": "Offer",
-      "itemOffered": {
-        "@type": "Service",
-        "name": "Automatización e inteligencia artificial"
-      }
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Trabajan con empresas de todo Chile?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Somos un estudio 100% remoto: nos reunimos por videollamada o WhatsApp y trabajamos con empresas de cualquier ciudad de Chile."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo cotizo un proyecto?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Escríbenos por WhatsApp contándonos qué necesitas. Conversamos sobre tu negocio y te enviamos una propuesta con alcance, precio y plazo antes de empezar."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cuánto cuesta una página web o una app?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Depende de lo que necesites: no cuesta lo mismo una página informativa que una app con usuarios y pagos. Por eso cotizamos cada proyecto y te damos un precio claro antes de comenzar."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué pasa después de la entrega?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Seguimos contigo. Te ayudamos con soporte, ajustes y nuevas funciones, y medimos cómo funciona para seguir mejorándolo."
+          }
+        }
+      ]
     }
   ]
 }
@@ -294,18 +183,21 @@ p { margin: 0; }
       <div class="rejilla">
         <article class="servicio">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8"/></svg>
-          <h3>Desarrollo web</h3>
+          <h3><a href="/desarrollo-web/">Desarrollo web</a></h3>
           <p>Sitios y plataformas rápidas, seguras y diseñadas para convertir visitantes en clientes.</p>
+          <span class="ver-mas" aria-hidden="true">Ver más →</span>
         </article>
         <article class="servicio">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
-          <h3>Apps móviles</h3>
+          <h3><a href="/desarrollo-de-apps/">Apps móviles</a></h3>
           <p>Aplicaciones para iOS y Android que tus usuarios disfrutan usar todos los días.</p>
+          <span class="ver-mas" aria-hidden="true">Ver más →</span>
         </article>
         <article class="servicio">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>
-          <h3>Software a medida</h3>
+          <h3><a href="/software-a-medida/">Software a medida</a></h3>
           <p>Sistemas hechos exactamente para cómo trabaja tu negocio, no al revés.</p>
+          <span class="ver-mas" aria-hidden="true">Ver más →</span>
         </article>
         <article class="servicio">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#A5A8FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M8.6 10.7l6.8-3.4M8.6 13.3l6.8 3.4"/></svg>
@@ -398,6 +290,17 @@ p { margin: 0; }
     </div>
   </section>
 
+  <section id="preguntas" class="contenedor seccion">
+    <p class="antetitulo">Preguntas frecuentes</p>
+    <h2 class="titulo">Lo que suelen preguntarnos.</h2>
+    <div class="faq">
+      <details><summary>¿Trabajan con empresas de todo Chile?</summary><p>Sí. Somos un estudio 100% remoto: nos reunimos por videollamada o WhatsApp y trabajamos con empresas de cualquier ciudad de Chile.</p></details>
+      <details><summary>¿Cómo cotizo un proyecto?</summary><p>Escríbenos por WhatsApp contándonos qué necesitas. Conversamos sobre tu negocio y te enviamos una propuesta con alcance, precio y plazo antes de empezar.</p></details>
+      <details><summary>¿Cuánto cuesta una página web o una app?</summary><p>Depende de lo que necesites: no cuesta lo mismo una página informativa que una app con usuarios y pagos. Por eso cotizamos cada proyecto y te damos un precio claro antes de comenzar.</p></details>
+      <details><summary>¿Qué pasa después de la entrega?</summary><p>Seguimos contigo. Te ayudamos con soporte, ajustes y nuevas funciones, y medimos cómo funciona para seguir mejorándolo.</p></details>
+    </div>
+  </section>
+
   <section id="contacto" class="contenedor contacto">
     <div class="contacto-caja">
       <div class="texto">
@@ -419,6 +322,7 @@ p { margin: 0; }
       <span class="marca-texto" style="font-size: 15px">VANO SYSTEMS</span>
       <span>· Innovación con propósito</span>
     </div>
+    <nav class="pie-enlaces" aria-label="Servicios"><a href="/desarrollo-web/">Páginas web</a><a href="/desarrollo-de-apps/">Apps móviles</a><a href="/software-a-medida/">Software a medida</a></nav>
     <div class="pie-datos">
       <span>contacto@vanosystems.com</span>
       <a href="https://wa.me/56973314909">+56 9 7331 4909</a>
