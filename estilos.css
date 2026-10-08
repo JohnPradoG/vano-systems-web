@@ -116,7 +116,7 @@ p { margin: 0; }
 .proyecto-captura { height: 320px; overflow: hidden; background: radial-gradient(120% 90% at 50% 0%, #26307A 0%, var(--tarjeta-alta) 62%); border-bottom: 1px solid var(--linea); display: flex; justify-content: center; padding-top: 32px; }
 .proyecto-captura img { width: 200px; height: auto; align-self: flex-start; border-radius: 22px; border: 4px solid #2A3355; box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45); }
 .subtitulo-proyectos { font-family: var(--display); font-weight: 600; font-size: 22px; color: var(--blanco); margin-top: 72px; }
-.subtitulo-proyectos + .rejilla { margin-top: 24px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); }
+.subtitulo-proyectos + .rejilla { margin-top: 24px; }
 .destacado .proyecto-tipo { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--indigo-claro); }
 .destacado h3 { font-weight: 600; font-size: 26px; }
 .destacado p { font-size: 16px; color: #B8BCD0; }
