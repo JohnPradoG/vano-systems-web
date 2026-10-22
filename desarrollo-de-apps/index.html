@@ -7,6 +7,7 @@
 <meta name="description" content="Desarrollo de aplicaciones móviles para Android e iOS en Chile: diseño, usuarios, notificaciones, pagos e integraciones, de la idea a la tienda.">
 <link rel="canonical" href="https://www.vanosystems.com/desarrollo-de-apps/">
 <meta name="theme-color" content="#0B1020">
+<script>try{var t=localStorage.getItem("tema")}catch(e){}document.documentElement.dataset.tema=t||"dorado";</script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -27,7 +28,7 @@
 <meta name="twitter:image:alt" content="Vano Systems: desarrollo tecnológico e innovación con propósito">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Sora:wght@400;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono&display=swap">
 <link rel="stylesheet" href="/estilos.css">
 <script type="application/ld+json">
 {
@@ -120,6 +121,7 @@
       <a href="/#proceso">Proceso</a>
       <a href="/#proyectos">Proyectos</a>
       <a href="/#nosotros">Nosotros</a>
+      <button class="tema" type="button" aria-label="Cambiar el color de la página" title="Cambiar color"><span></span></button>
       <a class="boton boton-principal" href="https://wa.me/56973314909?text=Hola%20Vano%20Systems%2C%20quiero%20cotizar%20un%20proyecto">Hablemos</a>
     </nav>
   </div>
@@ -230,5 +232,13 @@
   </div>
 </footer>
 
+<script>
+document.querySelector(".tema").addEventListener("click", function () {
+  var r = document.documentElement, n = r.dataset.tema === "dorado" ? "indigo" : "dorado";
+  r.dataset.tema = n;
+  try { localStorage.setItem("tema", n); } catch (e) {}
+  document.querySelector('meta[name="theme-color"]').content = n === "dorado" ? "#0A0A0C" : "#0B1020";
+});
+</script>
 </body>
 </html>
