@@ -8,7 +8,22 @@ export const EMPRESA = {
   director: "John Andres Prado",
 };
 
-// El asistente NO da precios: reúne esta información y John envía la propuesta con alcance, precio y plazo.
+// Precios referenciales "desde", en pesos chilenos. El asistente los da SOLO después de reunir la información
+// del cliente, eligiendo la categoría que corresponde, y aclara que el precio final se ajusta en la propuesta.
+// Una categoría con desde: null no se cotiza: el asistente dice que John enviará el precio en la propuesta.
+export const PRECIOS = [
+  { categoria: "Página web de presentación (1 página: servicios, contacto y WhatsApp)", desde: null },
+  { categoria: "Sitio web corporativo (varias páginas, SEO básico)", desde: null },
+  { categoria: "Sitio web con funciones (reservas, blog, panel para editar contenido)", desde: null },
+  { categoria: "Tienda en línea (catálogo, carrito y pagos)", desde: null },
+  { categoria: "App sencilla (pocas pantallas, sin usuarios ni pagos)", desde: null },
+  { categoria: "App intermedia (usuarios, panel de administración, notificaciones)", desde: null },
+  { categoria: "App compleja (pagos, mapas, chat, integraciones, Android y iPhone)", desde: null },
+  { categoria: "App o sistema de cotización (cálculo, PDF de cotización, clientes)", desde: null },
+  { categoria: "Software a medida (inventario, ventas, reportes)", desde: null },
+  { categoria: "Automatización, bots e IA", desde: null },
+];
+
 // Preguntas por tipo de proyecto. El asistente las hace de a una o dos y omite lo que el cliente ya contó.
 export const PREGUNTAS_COTIZACION = {
   "Todos los proyectos": [

@@ -73,6 +73,7 @@
         ${p.detalle ? `<details><summary>Detalle para cotizar</summary><div class="detalle">${esc(p.detalle)}</div></details>` : ""}
         ${p.plazo_deseado ? `<small>Plazo deseado: ${esc(p.plazo_deseado)}</small>` : ""}
         ${p.presupuesto ? `<small>Presupuesto mencionado: ${esc(p.presupuesto)}</small>` : ""}
+        ${p.precio_referencial ? `<small>Precio referencial dado: ${esc(p.precio_referencial)}</small>` : ""}
         ${p.horario_llamada ? `<small>📞 Horario para llamar: ${esc(p.horario_llamada)}</small>` : ""}
         ${p.ultimaVista ? `<small>Vista previa: <a href="${esc(p.ultimaVista)}" target="_blank" rel="noopener">abrir</a></small>` : ""}
         <small>${esc(new Date(p.actualizado).toLocaleString("es-CL"))}</small>

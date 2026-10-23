@@ -1,13 +1,13 @@
 // El asistente de WhatsApp: conversa, cotiza, crea vistas previas y avisa a John de cada prospecto.
 import Anthropic from "@anthropic-ai/sdk";
 import { randomUUID } from "node:crypto";
-import { EMPRESA, PREGUNTAS_COTIZACION, PREGUNTAS_FRECUENTES, LIMITES, MODELO } from "./config.js";
+import { EMPRESA, PRECIOS, PREGUNTAS_COTIZACION, PREGUNTAS_FRECUENTES, LIMITES, MODELO } from "./config.js";
 import { contar, guardarVista, guardarProspecto, leerHistorial, agregarHistorial } from "./store.js";
 import { enviarTexto } from "./whatsapp.js";
 import { generarVistaPrevia } from "./vista-previa.js";
 
 const client = new Anthropic();
-const SISTEMA = `Eres el asistente de ${EMPRESA.nombre} en WhatsApp. ${EMPRESA.nombre} es una empresa chilena de desarrollo tecnológico: páginas web, tiendas en línea, aplicaciones móviles, software a medida, automatización e inteligencia artificial, integraciones y soluciones en la nube. Lema: "Innovación con propósito". Director: ${EMPRESA.director}. Web: ${EMPRESA.web}. Correo: ${EMPRESA.correo}. Atención 100% remota en todo Chile.
+const SISTEMA_BASE = `Eres el asistente de ${EMPRESA.nombre} en WhatsApp. ${EMPRESA.nombre} es una empresa chilena de desarrollo tecnológico: páginas web, tiendas en línea, aplicaciones móviles, software a medida, automatización e inteligencia artificial, integraciones y soluciones en la nube. Lema: "Innovación con propósito". Director: ${EMPRESA.director}. Web: ${EMPRESA.web}. Correo: ${EMPRESA.correo}. Atención 100% remota en todo Chile.
 
 Atiende como el mejor ejecutivo comercial de una empresa de tecnología: rápido, cercano y concreto. Trata de "tú". Escribe mensajes cortos, propios de WhatsApp (2 a 5 líneas), sin títulos ni tablas. Para destacar usa *negrita* de WhatsApp con moderación.
 
@@ -20,10 +20,23 @@ Responde las preguntas con esta información y no inventes datos que no estén a
 ${PREGUNTAS_FRECUENTES.map(([p, r]) => `- ${p} ${r}`).join("\n")}
 
 ## Cotizaciones
-No des precios, rangos ni plazos de desarrollo, aunque te los pidan: cada proyecto se cotiza según lo que necesita. Si insisten, explica que ${EMPRESA.director} prepara una propuesta con alcance, precio y plazo apenas tenga la información.
+Nunca des precios antes de saber qué quiere el cliente: si pregunta "cuánto cuesta" de entrada, explica que depende de lo que necesite y empieza a hacerle las preguntas.
+`;
+
+const clp = (n) => "$" + n.toLocaleString("es-CL");
+const conPrecio = PRECIOS.filter((p) => p.desde);
+const SECCION_PRECIOS = conPrecio.length
+  ? `Cuando ya tengas la información y el cliente confirmó el resumen, elige la categoría que mejor calza y dale su precio referencial "desde" (pesos chilenos). Aclara siempre que es referencial: el precio final se ajusta según sus especificaciones en la propuesta de ${EMPRESA.director}. Categorías:
+${conPrecio.map((p) => `- ${p.categoria}: desde ${clp(p.desde)}`).join("\n")}
+Si su proyecto no calza con ninguna, no inventes cifras: di que ${EMPRESA.director} le enviará el precio en la propuesta. No des plazos de desarrollo.
+`
+  : `No des precios, rangos ni plazos: ${EMPRESA.director} enviará el precio en la propuesta.
+`;
+
+const SISTEMA = SISTEMA_BASE + SECCION_PRECIOS + `
 Cuando alguien quiera cotizar, reúne la información haciendo una o dos preguntas por mensaje, en orden natural, y omite lo que ya contó. Dile que también puede responder con audios. Preguntas según el tipo de proyecto:
 ${Object.entries(PREGUNTAS_COTIZACION).map(([tipo, ps]) => `${tipo}:\n${ps.map((x) => `  - ${x}`).join("\n")}`).join("\n")}
-No hagas más de 8 preguntas en total: si el cliente no sabe algo, sigue adelante. Cuando tengas lo esencial, resume en pocas líneas lo que entendiste y pide que confirme. Al confirmar, usa registrar_prospecto con tipo "cotizacion" y todo el detalle, y dile que ${EMPRESA.director} le enviará la propuesta formal por este medio o por correo.
+No hagas más de 8 preguntas en total: si el cliente no sabe algo, sigue adelante. Cuando tengas lo esencial, resume en pocas líneas lo que entendiste y pide que confirme. Al confirmar, dale el precio referencial si corresponde (ver arriba), usa registrar_prospecto con tipo "cotizacion" y todo el detalle, y dile que ${EMPRESA.director} le enviará la propuesta formal por este medio o por correo.
 
 ## Vista previa gratis
 Cuando sepas el negocio, el rubro y lo que quiere (en una web, tienda o app), ofrece crearle en minutos un borrador visual de su proyecto. Si acepta, usa crear_vista_previa. Mientras se crea, la persona recibe un aviso automático; cuando tengas el link, compártelo y pregúntale qué le parece.
@@ -71,9 +84,10 @@ const HERRAMIENTAS = [
         detalle: { type: "string", description: "Todas las respuestas del cliente para cotizar, una por línea con el formato 'Tema: respuesta'" },
         plazo_deseado: { type: "string", description: "Para cuándo lo necesita; vacío si no dijo" },
         presupuesto: { type: "string", description: "Presupuesto que mencionó; vacío si no dijo" },
+        precio_referencial: { type: "string", description: "Categoría y precio 'desde' que se le dio; vacío si no se dio" },
         horario_llamada: { type: "string", description: "Horario preferido para llamarlo; vacío si no aplica" },
       },
-      required: ["tipo", "nombre", "negocio", "correo", "servicio", "resumen", "detalle", "plazo_deseado", "presupuesto", "horario_llamada"],
+      required: ["tipo", "nombre", "negocio", "correo", "servicio", "resumen", "detalle", "plazo_deseado", "presupuesto", "precio_referencial", "horario_llamada"],
       additionalProperties: false,
     },
   },
@@ -103,6 +117,7 @@ async function ejecutar(herramienta, entrada, ctx) {
         p.detalle && `\n${p.detalle}`,
         p.plazo_deseado && `Plazo deseado: ${p.plazo_deseado}`,
         p.presupuesto && `Presupuesto mencionado: ${p.presupuesto}`,
+        p.precio_referencial && `Precio referencial dado: ${p.precio_referencial}`,
         p.horario_llamada && `Horario para llamar: ${p.horario_llamada}`,
         p.ultimaVista && `Vista previa: ${p.ultimaVista}`,
         `Panel: ${EMPRESA.web}/panel/`,

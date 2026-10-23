@@ -5,7 +5,7 @@ El asistente atiende el WhatsApp de Vano Systems las 24 horas:
 - Conversa con quien escribe y entiende qué necesita.
 - Crea en un par de minutos una **vista previa** de la página o app del cliente y le manda el link (`vanosystems.com/vista/...`).
 - Responde las **consultas** con la misma información de la web.
-- Para **cotizar** no da precios: hace las preguntas necesarias según el tipo de proyecto (lista editable en `api/_lib/config.js`), resume y le pasa a John la solicitud completa para que envíe la propuesta.
+- Para **cotizar** primero hace las preguntas necesarias según el tipo de proyecto, resume y, recién entonces, da un precio referencial "desde" según la categoría (web de presentación, corporativa, tienda, app sencilla, intermedia o compleja, app de cotización, etc.). Aclara que el precio final se ajusta en la propuesta de John. Precios y preguntas se editan en `api/_lib/config.js` (`PRECIOS` y `PREGUNTAS_COTIZACION`); una categoría sin precio no se cotiza por WhatsApp.
 - Entiende **audios**: las notas de voz se transcriben a texto automáticamente.
 - Registra cada **prospecto**, avisa a John por WhatsApp y lo guarda en el panel `vanosystems.com/panel/`.
 - Desde el panel John envía **avances de proyecto** a sus clientes por WhatsApp.
