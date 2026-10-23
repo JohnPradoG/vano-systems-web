@@ -8,7 +8,7 @@ export const EMPRESA = {
   director: "John Andres Prado",
 };
 
-// Precios referenciales "desde", en pesos chilenos. El asistente los da SOLO después de reunir la información
+// Precios referenciales "desde", en pesos chilenos, sin IVA (el asistente dice "+ IVA"). El asistente los da SOLO después de reunir la información
 // del cliente, eligiendo la categoría que corresponde, y aclara que el precio final se ajusta en la propuesta.
 // Precios propuestos 2026-10-23, por debajo del mínimo de la competencia en Chile (estudios y freelancers).
 // Una categoría con desde: null no se cotiza: el asistente dice que John enviará el precio en la propuesta.
@@ -22,7 +22,7 @@ export const PRECIOS = [
   { categoria: "App compleja (pagos, mapas, chat, integraciones, Android y iPhone)", desde: 2_390_000 },
   { categoria: "App o sistema de cotización (cálculo, PDF de cotización, clientes)", desde: 990_000 },
   { categoria: "Software a medida (inventario, ventas, reportes)", desde: 1_290_000 },
-  { categoria: "Automatización, bots e IA", desde: 390_000 },
+  { categoria: "Automatización, bots e IA", desde: 900_000 },
 ];
 
 // Preguntas por tipo de proyecto. El asistente las hace de a una o dos y omite lo que el cliente ya contó.

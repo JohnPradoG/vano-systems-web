@@ -26,8 +26,8 @@ Nunca des precios antes de saber qué quiere el cliente: si pregunta "cuánto cu
 const clp = (n) => "$" + n.toLocaleString("es-CL");
 const conPrecio = PRECIOS.filter((p) => p.desde);
 const SECCION_PRECIOS = conPrecio.length
-  ? `Cuando ya tengas la información y el cliente confirmó el resumen, elige la categoría que mejor calza y dale su precio referencial "desde" (pesos chilenos). Aclara siempre que es referencial: el precio final se ajusta según sus especificaciones en la propuesta de ${EMPRESA.director}. Categorías:
-${conPrecio.map((p) => `- ${p.categoria}: desde ${clp(p.desde)}`).join("\n")}
+  ? `Cuando ya tengas la información y el cliente confirmó el resumen, elige la categoría que mejor calza y dale su precio referencial "desde" (pesos chilenos, más IVA). Aclara siempre que es referencial y que no incluye IVA: el precio final se ajusta según sus especificaciones en la propuesta de ${EMPRESA.director}. Categorías:
+${conPrecio.map((p) => `- ${p.categoria}: desde ${clp(p.desde)} + IVA`).join("\n")}
 Si su proyecto no calza con ninguna, no inventes cifras: di que ${EMPRESA.director} le enviará el precio en la propuesta. No des plazos de desarrollo.
 `
   : `No des precios, rangos ni plazos: ${EMPRESA.director} enviará el precio en la propuesta.
