@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Panel · Vano Systems</title>
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<style>
+  :root { --fondo: #0A0A0C; --caja: #151518; --linea: #2E2A22; --texto: #EFEBE2; --suave: #A6A094; --oro: #E3A93E; --oro-claro: #F4C96A; --error: #FF8A7A; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fondo); color: var(--texto); font: 16px/1.5 system-ui, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 24px 16px 64px; display: grid; gap: 24px; }
+  h1 { font-size: 22px; margin: 0; } h2 { font-size: 17px; margin: 0 0 12px; color: var(--oro-claro); }
+  section { background: var(--caja); border: 1px solid var(--linea); border-radius: 14px; padding: 18px; }
+  label { display: grid; gap: 6px; font-size: 14px; color: var(--suave); margin-bottom: 12px; }
+  input, textarea { font: inherit; color: var(--texto); background: var(--fondo); border: 1px solid var(--linea); border-radius: 10px; padding: 10px 12px; }
+  textarea { min-height: 96px; resize: vertical; }
+  button { font: inherit; font-weight: 600; border: 0; border-radius: 10px; padding: 11px 18px; background: linear-gradient(135deg, #FFE7A6, #F2BE55 40%, #D99A2B); color: #1A1205; cursor: pointer; }
+  button.sec { background: transparent; color: var(--oro-claro); border: 1px solid var(--linea); }
+  .estado { font-size: 14px; color: var(--suave); min-height: 1.5em; } .estado.mal { color: var(--error); }
+  .prospecto { border-top: 1px solid var(--linea); padding: 12px 0; display: grid; gap: 4px; }
+  .prospecto:first-child { border-top: 0; }
+  .prospecto b { color: var(--texto); } .prospecto small { color: var(--suave); }
+  .prospecto a { color: var(--oro-claro); }
+  .detalle { white-space: pre-wrap; font-size: 14px; color: var(--texto); background: var(--fondo); border-radius: 8px; padding: 10px; margin-top: 6px; }
+  summary { cursor: pointer; color: var(--oro-claro); font-size: 14px; }
+  .fila { display: flex; gap: 8px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Panel del asistente de WhatsApp</h1>
+
+  <section id="acceso">
+    <label>Clave del panel <input id="clave" type="password" autocomplete="current-password"></label>
+    <div class="fila"><button id="entrar">Entrar</button></div>
+    <p class="estado" id="estado-acceso"></p>
+  </section>
+
+  <section>
+    <h2>Enviar avance a un cliente</h2>
+    <label>Teléfono con código de país (ej. 56912345678) <input id="telefono" inputmode="tel"></label>
+    <label>Nombre del cliente <input id="nombre"></label>
+    <label>Novedad <textarea id="mensaje" placeholder="Ej: Terminamos el diseño de la página de inicio y ya puedes revisarlo."></textarea></label>
+    <label>Link para ver el avance (opcional) <input id="link" inputmode="url" placeholder="https://"></label>
+    <div class="fila"><button id="enviar">Enviar por WhatsApp</button></div>
+    <p class="estado" id="estado-envio"></p>
+  </section>
+
+  <section>
+    <div class="fila" style="justify-content:space-between;align-items:center"><h2 style="margin:0">Prospectos</h2><button class="sec" id="recargar">Actualizar</button></div>
+    <div id="lista"><p class="estado">Ingresa la clave para ver los prospectos.</p></div>
+  </section>
+</main>
+<script>
+  const $ = (id) => document.getElementById(id);
+  let clave = "";
+  try { clave = sessionStorage.getItem("clave") || ""; } catch (e) {}
+  const cabeceras = () => ({ Authorization: "Bearer " + clave, "Content-Type": "application/json" });
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  async function cargar() {
+    const r = await fetch("/api/panel", { headers: cabeceras() });
+    if (r.status === 401) { $("estado-acceso").textContent = "Clave incorrecta."; $("estado-acceso").className = "estado mal"; return; }
+    $("acceso").hidden = true;
+    const { prospectos } = await r.json();
+    $("lista").innerHTML = prospectos.length ? prospectos.map((p) => `
+      <div class="prospecto">
+        <b>${p.tipo === "llamada" ? "📞" : p.tipo === "cotizacion" ? "🧾" : "💬"} ${esc(p.nombre || p.nombreWhatsApp || "Sin nombre")} · +${esc(p.telefono)}</b>
+        <span>${esc(p.negocio)}${p.servicio ? " · " + esc(p.servicio) : ""}${p.correo ? " · " + esc(p.correo) : ""}</span>
+        ${p.resumen ? `<span>${esc(p.resumen)}</span>` : ""}
+        ${p.detalle ? `<details><summary>Detalle para cotizar</summary><div class="detalle">${esc(p.detalle)}</div></details>` : ""}
+        ${p.plazo_deseado ? `<small>Plazo deseado: ${esc(p.plazo_deseado)}</small>` : ""}
+        ${p.presupuesto ? `<small>Presupuesto mencionado: ${esc(p.presupuesto)}</small>` : ""}
+        ${p.precio_referencial ? `<small>Precio referencial dado: ${esc(p.precio_referencial)}</small>` : ""}
+        ${p.horario_llamada ? `<small>📞 Horario para llamar: ${esc(p.horario_llamada)}</small>` : ""}
+        ${p.ultimaVista ? `<small>Vista previa: <a href="${esc(p.ultimaVista)}" target="_blank" rel="noopener">abrir</a></small>` : ""}
+        <small>${esc(new Date(p.actualizado).toLocaleString("es-CL"))}</small>
+        <div class="fila"><button class="sec" data-tel="${esc(p.telefono)}" data-nombre="${esc(p.nombre || p.nombreWhatsApp || "")}">Enviarle un avance</button></div>
+      </div>`).join("") : '<p class="estado">Aún no hay prospectos.</p>';
+  }
+
+  $("entrar").onclick = () => { clave = $("clave").value.trim(); try { sessionStorage.setItem("clave", clave); } catch (e) {} cargar(); };
+  $("recargar").onclick = cargar;
+  $("lista").onclick = (e) => {
+    const b = e.target.closest("button[data-tel]"); if (!b) return;
+    $("telefono").value = b.dataset.tel; $("nombre").value = b.dataset.nombre; $("mensaje").focus();
+  };
+  $("enviar").onclick = async () => {
+    const est = $("estado-envio"); est.className = "estado"; est.textContent = "Enviando…";
+    const r = await fetch("/api/panel", { method: "POST", headers: cabeceras(), body: JSON.stringify({
+      telefono: $("telefono").value, nombre: $("nombre").value, mensaje: $("mensaje").value, link: $("link").value }) });
+    const d = await r.json().catch(() => ({}));
+    if (r.ok) { est.textContent = "Enviado ✓"; $("mensaje").value = ""; $("link").value = ""; }
+    else { est.className = "estado mal"; est.textContent = d.error || "No se pudo enviar."; }
+  };
+  if (clave) cargar();
+</script>
+</body>
+</html>

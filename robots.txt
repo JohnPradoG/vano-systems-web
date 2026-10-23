@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /vista/
+Disallow: /panel/
+Disallow: /api/
 
 Sitemap: https://www.vanosystems.com/sitemap.xml

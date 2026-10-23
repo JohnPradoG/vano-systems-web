@@ -1,0 +1,11 @@
+{
+  "name": "vano-systems-web",
+  "private": true,
+  "type": "module",
+  "description": "Sitio de Vano Systems y asistente de WhatsApp con IA",
+  "engines": { "node": "22.x" },
+  "dependencies": {
+    "@anthropic-ai/sdk": "0.137.0",
+    "@vercel/functions": "3.10.3"
+  }
+}
