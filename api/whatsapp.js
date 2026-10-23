@@ -1,6 +1,7 @@
 // Webhook de WhatsApp (Meta Cloud API). Meta llama a /api/whatsapp con cada mensaje recibido.
 import { waitUntil } from "@vercel/functions";
-import { firmaValida, marcarLeido, enviarTexto } from "./_lib/whatsapp.js";
+import { firmaValida, marcarLeido, enviarTexto, descargarMedia } from "./_lib/whatsapp.js";
+import { transcribir, transcripcionActiva } from "./_lib/transcripcion.js";
 import { primeraVez, contar } from "./_lib/store.js";
 import { responder } from "./_lib/asistente.js";
 import { LIMITES } from "./_lib/config.js";
@@ -43,6 +44,7 @@ async function atender(m, nombre) {
     if (m.type === "text") texto = m.text.body;
     else if (m.type === "interactive") texto = m.interactive?.button_reply?.title || m.interactive?.list_reply?.title;
     else if (m.type === "button") texto = m.button?.text;
+    else if (m.type === "audio") texto = await textoDeAudio(m.audio);
     else texto = `[El cliente envió un mensaje de tipo ${m.type}, que el asistente no puede leer]`;
 
     const respuesta = await responder({ telefono: m.from, nombre, texto });
@@ -50,5 +52,20 @@ async function atender(m, nombre) {
   } catch (e) {
     console.error("Error atendiendo mensaje", m.id, e);
     await enviarTexto(m.from, "Tuve un problema para responderte. Inténtalo de nuevo en un momento o escríbenos a contacto@vanosystems.com.").catch(() => {});
+  }
+}
+
+// Las notas de voz se transcriben y llegan al asistente como texto marcado con "[Audio]".
+async function textoDeAudio(audio) {
+  const noSePudo = "[El cliente envió un audio que no se pudo escuchar. Pídele amablemente que lo repita o lo escriba]";
+  if (!transcripcionActiva() || !audio?.id) return noSePudo;
+  try {
+    const media = await descargarMedia(audio.id);
+    if (media.datos.length > LIMITES.audioMaxMB * 1024 * 1024) return "[El cliente envió un audio demasiado largo. Pídele que lo divida en audios más cortos]";
+    const texto = await transcribir(media);
+    return texto ? `[Audio] ${texto}` : noSePudo;
+  } catch (e) {
+    console.error("Transcripción de audio:", e);
+    return noSePudo;
   }
 }

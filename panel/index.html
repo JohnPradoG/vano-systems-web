@@ -23,6 +23,8 @@
   .prospecto:first-child { border-top: 0; }
   .prospecto b { color: var(--texto); } .prospecto small { color: var(--suave); }
   .prospecto a { color: var(--oro-claro); }
+  .detalle { white-space: pre-wrap; font-size: 14px; color: var(--texto); background: var(--fondo); border-radius: 8px; padding: 10px; margin-top: 6px; }
+  summary { cursor: pointer; color: var(--oro-claro); font-size: 14px; }
   .fila { display: flex; gap: 8px; flex-wrap: wrap; }
 </style>
 </head>
@@ -65,11 +67,13 @@
     const { prospectos } = await r.json();
     $("lista").innerHTML = prospectos.length ? prospectos.map((p) => `
       <div class="prospecto">
-        <b>${esc(p.nombre || p.nombreWhatsApp || "Sin nombre")} · +${esc(p.telefono)}</b>
-        <span>${esc(p.negocio)}${p.servicio ? " · " + esc(p.servicio) : ""}</span>
+        <b>${p.tipo === "llamada" ? "📞" : p.tipo === "cotizacion" ? "🧾" : "💬"} ${esc(p.nombre || p.nombreWhatsApp || "Sin nombre")} · +${esc(p.telefono)}</b>
+        <span>${esc(p.negocio)}${p.servicio ? " · " + esc(p.servicio) : ""}${p.correo ? " · " + esc(p.correo) : ""}</span>
         ${p.resumen ? `<span>${esc(p.resumen)}</span>` : ""}
-        ${p.rango_cotizado ? `<small>Rango dado: ${esc(p.rango_cotizado)}</small>` : ""}
-        ${p.quiere_llamada ? `<small>📞 Quiere llamada: ${esc(p.horario_llamada || "sin horario")}</small>` : ""}
+        ${p.detalle ? `<details><summary>Detalle para cotizar</summary><div class="detalle">${esc(p.detalle)}</div></details>` : ""}
+        ${p.plazo_deseado ? `<small>Plazo deseado: ${esc(p.plazo_deseado)}</small>` : ""}
+        ${p.presupuesto ? `<small>Presupuesto mencionado: ${esc(p.presupuesto)}</small>` : ""}
+        ${p.horario_llamada ? `<small>📞 Horario para llamar: ${esc(p.horario_llamada)}</small>` : ""}
         ${p.ultimaVista ? `<small>Vista previa: <a href="${esc(p.ultimaVista)}" target="_blank" rel="noopener">abrir</a></small>` : ""}
         <small>${esc(new Date(p.actualizado).toLocaleString("es-CL"))}</small>
         <div class="fila"><button class="sec" data-tel="${esc(p.telefono)}" data-nombre="${esc(p.nombre || p.nombreWhatsApp || "")}">Enviarle un avance</button></div>

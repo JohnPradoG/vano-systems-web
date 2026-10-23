@@ -58,3 +58,13 @@ export async function firmaValida(cuerpoCrudo, firma) {
   for (let i = 0; i < esperado.length; i++) diff |= esperado.charCodeAt(i) ^ firma.charCodeAt(i);
   return diff === 0;
 }
+
+// Descarga un archivo recibido (audio, imagen): primero se pide su URL temporal y luego el contenido.
+export async function descargarMedia(idMedia) {
+  const auth = { Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}` };
+  const info = await fetch(`${BASE}/${VERSION}/${idMedia}`, { headers: auth }).then((r) => r.json());
+  if (!info.url) throw new Error(`Media ${idMedia} sin URL: ${JSON.stringify(info.error || info)}`);
+  const res = await fetch(info.url, { headers: auth });
+  if (!res.ok) throw new Error(`Descarga de media ${res.status}`);
+  return { datos: new Uint8Array(await res.arrayBuffer()), tipo: info.mime_type || res.headers.get("content-type") || "" };
+}
