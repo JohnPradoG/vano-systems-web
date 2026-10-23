@@ -1,0 +1,9 @@
+{
+  "rewrites": [{ "source": "/vista/:id", "destination": "/api/vista?id=:id" }],
+  "functions": {
+    "api/whatsapp.js": { "maxDuration": 300 }
+  },
+  "headers": [
+    { "source": "/panel/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] }
+  ]
+}
